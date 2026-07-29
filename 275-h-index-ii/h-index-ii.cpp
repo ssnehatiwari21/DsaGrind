@@ -13,7 +13,7 @@ public:
     int hIndex(vector<int>& citations) {
         int n=citations.size();
         int low=1;
-        int high=*max_element(citations.begin(),citations.end());
+        int high=n;
         int ans=0;
         while(low<=high){
             int mid=low+(high-low)/2;
