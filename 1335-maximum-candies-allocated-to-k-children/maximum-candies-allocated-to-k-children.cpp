@@ -14,11 +14,8 @@ public:
     int maximumCandies(vector<int>& candies, long long k) {
         int n=candies.size();
         long long low=1;
-        long long high=0;
+        long long high=*max_element(candies.begin(),candies.end());
         long long ans=0;
-        for(int i=0;i<n;i++){
-            high+=candies[i];
-        }
         while(low<=high){
             long long mid=low+(high-low)/2;
             if(canDivide(candies,k,mid)){
