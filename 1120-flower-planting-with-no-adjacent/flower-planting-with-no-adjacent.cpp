@@ -15,7 +15,8 @@ public:
                 colors[g-1]=col;
                 ans.push_back(col);
                 if(solve(n,g+1,adj,colors,ans)) return true;
-                
+                colors[g-1] = 0;
+                ans.pop_back();
             }
         }
         return false;
