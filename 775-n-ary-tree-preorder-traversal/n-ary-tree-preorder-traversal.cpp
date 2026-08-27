@@ -20,18 +20,23 @@ public:
 
 class Solution {
 public:
-    void preorderTraversal(Node* root,vector<int> &ans){
-        if(root==nullptr) return;
-        ans.push_back(root->val);
-
-        for(Node* child:root->children){
-            preorderTraversal(child,ans);
-        }
-    }
     vector<int> preorder(Node* root) {
-        if(root==nullptr) return {};
+        if(root==nullptr) return{};
+        stack<Node*> st;
         vector<int> ans;
-        preorderTraversal(root,ans);
+        st.push(root);
+        while(!st.empty()){
+            Node* top=st.top();
+            st.pop();
+            ans.push_back(top->val);
+
+            //push the childrens
+            for(int i=top->children.size()-1;i>=0;i--){
+                if(top->children[i]!=nullptr){
+                    st.push(top->children[i]);
+                }
+            }
+        }
         return ans;
     }
 };
