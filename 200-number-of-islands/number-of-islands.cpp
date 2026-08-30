@@ -1,13 +1,21 @@
 class Solution {
 public:
     int dir[4][2]={{-1,0},{0,1},{1,0},{0,-1}};
-    void dfs(int row,int col,vector<vector<char>> &grid,vector<vector<int>> &vis){
+    void bfs(int row,int col,vector<vector<char>> &grid,vector<vector<int>> &vis){
+        queue<pair<int,int>> q;
+        q.push({row,col});
         vis[row][col]=1;
-        for(int i=0;i<4;i++){
-            int newrow=row+dir[i][0];
-            int newcol=col+dir[i][1];
-            if(newrow>=0 && newcol>=0 && newrow<grid.size() && newcol<grid[0].size() && vis[newrow][newcol]==0 && grid[newrow][newcol]=='1'){
-                dfs(newrow,newcol,grid,vis);
+        while(!q.empty()){
+            int toprow=q.front().first;
+            int topcol=q.front().second;
+            q.pop();
+            for(int i=0;i<4;i++){
+                int newrow=toprow+dir[i][0];
+                int newcol=topcol+dir[i][1];
+                if(newrow>=0 && newcol>=0 && newrow<grid.size() && newcol<grid[0].size() && vis[newrow][newcol]==0 && grid[newrow][newcol]=='1'){
+                    q.push({newrow,newcol});
+                    vis[newrow][newcol]=1;
+                }
             }
         }
     }
@@ -18,7 +26,7 @@ public:
             for(int j=0;j<grid[0].size();j++){
                 if(vis[i][j]==0 && grid[i][j]=='1'){
                     count++;
-                    dfs(i,j,grid,vis);
+                    bfs(i,j,grid,vis);
                 }
             }
         }
