@@ -1,39 +1,32 @@
 class Solution {
 public:
-    
-    void dfs(int node,vector<vector<int>> &adj,vector<int> &vis){
+    void dfs(vector<vector<int>> &adj,vector<int> &vis,int node){
         vis[node]=1;
-        for(int nei:adj[node]){
+        for(auto nei:adj[node]){
             if(vis[nei]==0){
-                dfs(nei,adj,vis);
+                dfs(adj,vis,nei);
             }
         }
     }
     int findCircleNum(vector<vector<int>>& isConnected) {
-        //adj list from matrix representation
-        int n=isConnected.size();
-        vector<vector<int>> adj(n+1);
-
-        //O(n^2)
-        for(int i=1;i<=n;i++){
-            for(int j=1;j<=n;j++){
-                if(isConnected[i-1][j-1]==1 && i!=j){
+        //adjlist
+        vector<vector<int>> adj(isConnected.size());
+        vector<int> vis(isConnected.size());
+        for(int i=0;i<isConnected.size();i++){
+            for(int j=0;j<isConnected[0].size();j++){
+                if(isConnected[i][j]==1 && i!=j){
                     adj[i].push_back(j);
                     adj[j].push_back(i);
                 }
             }
         }
-
-       //O(n+E)
         int count=0;
-        vector<int> vis(n+1,0);
-        for(int i=1;i<=n;i++){
+        for(int i=0;i<isConnected.size();i++){
             if(vis[i]==0){
                 count++;
-                dfs(i,adj,vis);
+                dfs(adj,vis,i);
             }
         }
         return count;
-        //total O(n^2+n+e) == n2
     }
 };
