@@ -14,18 +14,12 @@ public:
         if(head->next==NULL) return NULL;
         ListNode* slow=head;
         ListNode* fast=head;
-        ListNode* prev=slow;
+        ListNode* prev=NULL;
 
         while(fast!=NULL && fast->next!=NULL){
             prev=slow;
             slow=slow->next;
             fast=fast->next->next;
-        }
-
-        while(slow->next!=NULL){
-            slow->val=slow->next->val;
-            prev=slow;
-            slow=slow->next;
         }
         prev->next=slow->next;
         return head;
