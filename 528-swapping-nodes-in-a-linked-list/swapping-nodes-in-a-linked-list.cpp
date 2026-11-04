@@ -13,24 +13,18 @@ public:
     ListNode* swapNodes(ListNode* head, int k) {
         int n=0;
         ListNode* temp=head;
-        ListNode* node1=head;
-        ListNode* node2=head;
+        ListNode* node1=NULL;
+        ListNode* node2=NULL;
         
         while(temp!=NULL){
-            n++;
-            temp=temp->next;
-        }
-        int i=0;
-        temp=head;
-        while(temp!=NULL){
-            i++;
-            if(i==k){
+            if(node2!=NULL) node2=node2->next;
+            k--;
+            if(k==0){
                 node1=temp;
-            }
-            if(i==n-k+1){
-                node2=temp;
+                node2=head;
             }
             temp=temp->next;
+            
         }
         swap(node1->val,node2->val);
         return head;
